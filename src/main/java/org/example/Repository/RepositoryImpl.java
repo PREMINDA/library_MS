@@ -1,13 +1,15 @@
 package org.example.Repository;
 
+import com.sun.istack.NotNull;
 import org.example.database.DataBase;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,22 +52,36 @@ public class RepositoryImpl<T,ID> implements Repository<T,ID> {
         return resultList;
     }
 
+    protected List<T> runCustomQuery(String hql, HashMap<String,Object> para){
+        return queryGenerator(hql, para).getResultList();
+    }
+
+    private Query queryGenerator(@NotNull String hql, HashMap<String,Object> para){
+        Session se = getSession();
+        Query query = se.createQuery(hql);
+        for (String key : para.keySet()) {
+            Object value = para.get(key);
+            query.setParameter(key, value);
+        }
+        return query;
+    }
+
     private void delete(T entity) {
         Session se = getSessionWithBegin();
         se.delete(entity);
         sessionCommitAndClose(se);
     }
 
-    private Session getSession(){
+    protected Session getSession(){
         return this.sf.openSession();
     }
 
-    private Session getSessionWithBegin(){
+    protected Session getSessionWithBegin(){
         Session se = this.sf.openSession();
         se.beginTransaction();
         return se;
     }
-    private void sessionCommitAndClose(Session se){
+    protected void sessionCommitAndClose(Session se){
         Transaction ts = se.getTransaction();
         ts.commit();
         se.close();

@@ -8,4 +8,5 @@ public interface Repository<T, ID> {
     public  void deleteById(ID id);
     public T save(T entity);
      public List<T> findAll();
+
 }

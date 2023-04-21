@@ -7,6 +7,7 @@ import org.hibernate.cfg.Configuration;
 public class DataBase {
 
     private static SessionFactory sessionFactory = null;
+
     private static Configuration getConfiguration(){
         Configuration configuration = new Configuration();
         configuration.setProperty("hibernate.connection.driver_class", SessionFactoryConstant.DriverClassName);
