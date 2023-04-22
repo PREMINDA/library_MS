@@ -3,6 +3,7 @@ package org.example.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="book")
@@ -17,6 +18,7 @@ public class Book {
     private int id;
     private String author;
     private String title;
-    private boolean isBorrowed;
+    private boolean isAvailable;
+    private LocalDate dueDate;
 
 }

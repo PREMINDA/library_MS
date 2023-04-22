@@ -1,5 +1,4 @@
 package org.example.Repository;
-
 import com.sun.istack.NotNull;
 import org.example.database.DataBase;
 import org.hibernate.Session;
@@ -41,6 +40,14 @@ public class RepositoryImpl<T,ID> implements Repository<T,ID> {
     }
 
     @Override
+    public T update(T entity) {
+        Session se = getSessionWithBegin();
+        se.update(entity);
+        sessionCommitAndClose(se);
+        return entity;
+    }
+
+    @Override
     public List<T> findAll() {
         Session se = getSession();
         CriteriaBuilder criteriaBuilder = se.getCriteriaBuilder();
@@ -57,6 +64,7 @@ public class RepositoryImpl<T,ID> implements Repository<T,ID> {
     }
 
     private Query queryGenerator(@NotNull String hql, HashMap<String,Object> para){
+
         Session se = getSession();
         Query query = se.createQuery(hql);
         for (String key : para.keySet()) {
