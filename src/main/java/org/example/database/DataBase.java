@@ -33,4 +33,10 @@ public class DataBase {
         return sessionFactory;
     }
 
+    public static void closeSessionFactory(){
+        if(sessionFactory != null){
+            sessionFactory.close();
+        }
+    }
+
 }

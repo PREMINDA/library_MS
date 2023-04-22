@@ -6,7 +6,7 @@ public class SessionFactoryConstant {
     public static String Password = "78951";
     public static String DriverClassName = "com.mysql.cj.jdbc.Driver";
     public static String hbm2ddl = "update";
-    public static String show_sql = "true";
+    public static String show_sql = "false";
     public static String format_sql = "true";
     public static String Dialect = "org.hibernate.dialect.MySQL8Dialect";
     public static String maximumPoolSize = "20";

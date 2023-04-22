@@ -1,6 +1,5 @@
 package org.example.Repository;
 import com.sun.istack.NotNull;
-import org.example.database.DataBase;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,11 +16,13 @@ public class RepositoryImpl<T,ID> implements Repository<T,ID> {
 
     protected final Class<T> domainType;
     private static final Logger logger = Logger.getLogger(RepositoryImpl.class.getName());
-    protected final SessionFactory sf = DataBase.getSessionFactory();
+    protected final SessionFactory sf ;
 
-    public RepositoryImpl(Class<T> domainType) {
+    public RepositoryImpl(Class<T> domainType, SessionFactory sf) {
         this.domainType = domainType;
+        this.sf = sf;
     }
+
 
     public Optional<T> findById(ID id) {
         try {

@@ -1,13 +1,14 @@
 package org.example.Repository;
 
 import org.example.entity.Book;
+import org.hibernate.SessionFactory;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class LibraryRepositoryImpl extends RepositoryImpl<Book,Integer> implements LibraryRepository {
-    public LibraryRepositoryImpl() {
-        super(Book.class);
+    public LibraryRepositoryImpl(SessionFactory sessionFactory) {
+        super(Book.class,sessionFactory);
     }
     @Override
     public List<Book> getAllAvailableBook(){
