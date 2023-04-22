@@ -27,8 +27,8 @@ public class BurrowBooks extends LibraryGUIDataHandler {
         addButton.setPreferredSize(size);
         controlPanel.add(addButton);
 
-        JButton removeButton = new JButton("Handover");
-        removeButton.addActionListener(e -> handover());
+        JButton removeButton = new JButton("Return Book");
+        removeButton.addActionListener(e -> returnBook());
         removeButton.setPreferredSize(size);
         controlPanel.add(removeButton);
 
@@ -54,7 +54,7 @@ public class BurrowBooks extends LibraryGUIDataHandler {
         mapAllAvailable();
     }
 
-    private void handover() {
+    private void returnBook() {
         int selectedRow = getSelectedRow();
         if (selectedRow == -1) {
             messageShower("Please select a book");
