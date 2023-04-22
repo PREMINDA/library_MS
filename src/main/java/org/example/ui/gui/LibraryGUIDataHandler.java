@@ -2,12 +2,12 @@ package org.example.ui.gui;
 
 import org.example.Repository.LibraryRepository;
 import org.example.entity.Book;
+import org.example.ui.gui.enums.Selector;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Predicate;
 

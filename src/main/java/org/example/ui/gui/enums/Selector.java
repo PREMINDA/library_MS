@@ -1,4 +1,4 @@
-package org.example.ui.gui;
+package org.example.ui.gui.enums;
 
 public enum Selector {
     WITH_DATE,

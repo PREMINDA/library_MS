@@ -1,7 +1,7 @@
 package org.example.ui.gui;
 
 import org.example.Repository.LibraryRepository;
-import org.example.ui.UI;
+import org.example.ui.interfaces.UI;
 import javax.swing.*;
 
 

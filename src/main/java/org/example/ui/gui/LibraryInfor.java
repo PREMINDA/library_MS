@@ -4,7 +4,6 @@ import org.example.Repository.LibraryRepository;
 import org.example.entity.Book;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class LibraryInfor extends LibraryGUIDataHandler {
@@ -76,7 +75,7 @@ public class LibraryInfor extends LibraryGUIDataHandler {
     }
 
     private void getAllBooks() {
-        java.util.List<Book> allBooks = libraryRepository.findAll();
+        java.util.List<Book> allBooks = libraryRepository.getAll();
         tableDataMapper(allBooks);
     }
 

@@ -2,6 +2,7 @@ package org.example.ui.gui;
 
 import org.example.Repository.LibraryRepository;
 import org.example.entity.Book;
+import org.example.ui.gui.enums.Selector;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 
