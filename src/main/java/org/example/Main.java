@@ -15,6 +15,5 @@ public class Main {
         UIFactory uiFactory = new UIFactory(libraryRepository);
         UI ui = uiFactory.getUI(UIType.GUI);
         ui.show();
-        DataBase.closeSessionFactory();
     }
 }

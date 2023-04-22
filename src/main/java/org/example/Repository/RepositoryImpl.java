@@ -67,19 +67,14 @@ public class RepositoryImpl<T,ID> implements Repository<T,ID> {
 
     @Override
     public List<T> getAll() {
-        try{
-            Session se = getSession();
-            CriteriaBuilder criteriaBuilder = se.getCriteriaBuilder();
-            CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(domainType);
-            Root<T> root = criteriaQuery.from(domainType);
-            criteriaQuery.select(root);
-            List<T> resultList = se.createQuery(criteriaQuery).getResultList();
-            se.close();
-            return resultList;
-        }catch (Exception e){
-            logger.severe("Failed get all. " + e.getMessage());
-        }
-        return null;
+        Session se = getSession();
+        CriteriaBuilder criteriaBuilder = se.getCriteriaBuilder();
+        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(domainType);
+        Root<T> root = criteriaQuery.from(domainType);
+        criteriaQuery.select(root);
+        List<T> resultList = se.createQuery(criteriaQuery).getResultList();
+        se.close();
+        return resultList;
     }
 
     protected List<T> runCustomQuery(String hql, HashMap<String,Object> para){
