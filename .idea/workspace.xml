@@ -4,33 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc9ffb32-61c6-45e2-9762-70541c79d898" name="Changes" comment="fixer">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Services/LibraryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Services/LibraryServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/commands/CliCommands.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/commands/Commands.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/commands/GuiCommands.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/commands/GuiHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/constant/CliConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUIHelper.java" afterDir="false" />
+    <list default="true" id="dc9ffb32-61c6-45e2-9762-70541c79d898" name="Changes" comment="cleanup">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/commands/Commander.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Repository/RepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Repository/RepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/LibraryCLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/LibraryCLI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/commcands/AddNewBook.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/commcands/ExitCLI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/commcands/RemoveBook.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/commcands/ShowAllAvailableBooks.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/commcands/ShowAllBooks.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/commcands/ShowOptions.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/BurrowBooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/BurrowBooks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUIDataHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryInfor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryInfor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/enums/OptionState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/enums/OptionState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/enums/Selector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/enums/Selector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUIHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUIHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/uifactory/UIFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/uifactory/UIFactory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,7 +97,7 @@
       <workItem from="1682524326362" duration="1686000" />
       <workItem from="1682750501344" duration="9953000" />
       <workItem from="1682772825302" duration="1014000" />
-      <workItem from="1682773864710" duration="20053000" />
+      <workItem from="1682773864710" duration="21969000" />
     </task>
     <task id="LOCAL-00001" summary="fixer">
       <created>1682766832161</created>
@@ -124,7 +106,28 @@
       <option name="project" value="LOCAL" />
       <updated>1682766832161</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="changes">
+      <created>1682797231702</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1682797231702</updated>
+    </task>
+    <task id="LOCAL-00003" summary="typo error">
+      <created>1682797301809</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1682797301809</updated>
+    </task>
+    <task id="LOCAL-00004" summary="cleanup">
+      <created>1682797595746</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682797595746</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,7 +146,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fixer" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixer" />
+    <MESSAGE value="changes" />
+    <MESSAGE value="typo error" />
+    <MESSAGE value="cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleanup" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

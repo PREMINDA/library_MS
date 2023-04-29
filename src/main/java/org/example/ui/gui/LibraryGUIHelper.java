@@ -2,6 +2,7 @@ package org.example.ui.gui;
 
 import org.example.Repository.LibraryRepository;
 import org.example.Services.LibraryService;
+import org.example.commands.Commander;
 import org.example.commands.Commands;
 import org.example.commands.GuiCommands;
 import javax.swing.*;
@@ -19,9 +20,11 @@ public class LibraryGUIHelper {
     protected JPanel controlPanel;
     protected Dimension size;
     protected Commands guiCommands;
+    protected final Commander commander;
 
-    public LibraryGUIHelper(LibraryService libraryService) {
+    public LibraryGUIHelper(LibraryService libraryService,Commander commander) {
         this.libraryService = libraryService;
+        this.commander = commander;
         intView();
     }
 
