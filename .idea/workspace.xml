@@ -4,15 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc9ffb32-61c6-45e2-9762-70541c79d898" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/enums/OptionState.java" afterDir="false" />
+    <list default="true" id="dc9ffb32-61c6-45e2-9762-70541c79d898" name="Changes" comment="fixer">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Services/LibraryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Services/LibraryServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/commands/CliCommands.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/commands/Commands.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/commands/GuiCommands.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/commands/GuiHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/constant/CliConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUIHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Repository/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Repository/Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Repository/RepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Repository/RepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/LibraryCLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/LibraryCLI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/commcands/AddNewBook.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/commcands/ExitCLI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/commcands/RemoveBook.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/commcands/ShowAllAvailableBooks.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/commcands/ShowAllBooks.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/commcands/ShowOptions.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/BurrowBooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/BurrowBooks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUIDataHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUIDataHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUIDataHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryInfor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryInfor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/enums/OptionState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/enums/OptionState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/enums/Selector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/enums/Selector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/uifactory/UIFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/uifactory/UIFactory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +42,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -50,7 +71,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/Amigoscode/library_MS",
+    "last_opened_file_path": "C:/Users/premi/Downloads/Compressed/library-management-system-master/library-management-system-master",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -92,8 +113,18 @@
       <workItem from="1682174553373" duration="87000" />
       <workItem from="1682174659715" duration="556000" />
       <workItem from="1682524326362" duration="1686000" />
-      <workItem from="1682750501344" duration="7785000" />
+      <workItem from="1682750501344" duration="9953000" />
+      <workItem from="1682772825302" duration="1014000" />
+      <workItem from="1682773864710" duration="20053000" />
     </task>
+    <task id="LOCAL-00001" summary="fixer">
+      <created>1682766832161</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1682766832161</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -109,6 +140,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fixer" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixer" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,15 +1,15 @@
 package org.example.ui.gui;
 
-import org.example.Repository.LibraryRepository;
+import org.example.Services.LibraryService;
 import org.example.ui.interfaces.UI;
 import javax.swing.*;
 
 
 public class LibraryGUI implements UI {
 
-    private final LibraryRepository libraryRepository;
-    public  LibraryGUI(LibraryRepository libraryService){
-        this.libraryRepository = libraryService;
+    private final LibraryService libraryService;
+    public  LibraryGUI(LibraryService libraryService){
+        this.libraryService = libraryService;
     }
     @Override
     public void show() {
@@ -20,8 +20,8 @@ public class LibraryGUI implements UI {
         JFrame frame = new JFrame("Tabbed Pane Example");
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        tabbedPane.addTab("Library Data", new LibraryInfor(libraryRepository).getjPanel());
-        tabbedPane.addTab("Burrow Handler", new BurrowBooks(libraryRepository).getjPanel());
+        tabbedPane.addTab("Library Data", new LibraryInfor(libraryService).getjPanel());
+        tabbedPane.addTab("Burrow Handler", new BurrowBooks(libraryService).getjPanel());
 
         frame.add(tabbedPane);
 
@@ -31,6 +31,4 @@ public class LibraryGUI implements UI {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-
-
 }

@@ -1,53 +1,42 @@
 package org.example.ui.gui;
 
-import org.example.Repository.LibraryRepository;
-import org.example.entity.Book;
-import org.example.ui.gui.enums.Selector;
-import org.example.ui.gui.enums.OptionState;
-import org.jdatepicker.DateModel;
-import org.jdatepicker.JDatePicker;
-
+import org.example.Services.LibraryService;
 import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 
-public class BurrowBooks extends LibraryGUIDataHandler {
 
-    private OptionState state;
+public class BurrowBooks extends LibraryGUIHelper {
 
-    public BurrowBooks(LibraryRepository libraryRepository) {
-        super(libraryRepository);
-        state = OptionState.BURROW;
+
+    public BurrowBooks(LibraryService libraryService) {
+        super(libraryService);
         createGUI();
     }
 
     private void createGUI() {
 
         JButton addButton = new JButton("Borrowing");
-        addButton.addActionListener(e -> burrowing());
+        addButton.addActionListener(e -> guiCommands.borrowBook());
         addButton.setPreferredSize(size);
         controlPanel.add(addButton);
 
         JButton removeButton = new JButton("Return Book");
-        removeButton.addActionListener(e -> returnBook());
+        removeButton.addActionListener(e -> guiCommands.returnBook());
         removeButton.setPreferredSize(size);
         controlPanel.add(removeButton);
 
         JButton allButton = new JButton("All Non Available");
-        allButton.addActionListener(e -> mapAllNonAvailableBook());
+        allButton.addActionListener(e -> guiCommands.allNonAvailableBook());
         allButton.setPreferredSize(size);
         controlPanel.add(allButton);
 
         JButton burrowedButton = new JButton("Available Books");
-        burrowedButton.addActionListener(e -> mapAllAvailable());
+        burrowedButton.addActionListener(e ->  guiCommands.allAvailableBook());
         burrowedButton.setPreferredSize(size);
         controlPanel.add(burrowedButton);
 
         JButton overDueButton = new JButton("Overdue Books");
-        overDueButton.addActionListener(e -> getAllOverDueBook());
+        overDueButton.addActionListener(e -> guiCommands.overdueBooks());
         overDueButton.setPreferredSize(size);
         controlPanel.add(overDueButton);
 
@@ -55,88 +44,6 @@ public class BurrowBooks extends LibraryGUIDataHandler {
         jPanel.add(controlPanel);
         jPanel.add(scrollPane);
 
-        mapAllAvailable();
+        guiCommands.allAvailableBook();
     }
-
-    private void returnBook() {
-        if(state != OptionState.RETURN){
-            messageShower("Select All non available book first");
-            return;
-        }
-        int selectedRow = getSelectedRow();
-        if (selectedRow == -1) {
-            messageShower("Please select a book");
-            return;
-        }
-        int bookId = getBookIdFromSelectedRow(selectedRow);
-        int result = jOptionCreate("Make sure you received a book", "Add Book", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            Optional<Book> ob = libraryRepository.findById(bookId);
-            if(ob.isPresent()){
-                Book b = ob.get();
-                b.setAvailable(true);
-                libraryRepository.update(b);
-            }else return;
-            mapAllNonAvailableBook();
-        }
-    }
-
-    private void burrowing() {
-        if(state != OptionState.BURROW){
-            messageShower("Select All available book first");
-            return;
-        }
-        int selectedRow = getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(jPanel, "Please select a book.");
-            return;
-        }
-        int bookId = getBookIdFromSelectedRow(selectedRow);
-        JDatePicker dueDate = new JDatePicker();
-        Object[] inputFields = {
-                "Due Date", dueDate
-        };
-        int result = jOptionCreate(inputFields, "Add Book", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            Optional<Book> ob = libraryRepository.findById(bookId);
-            if(ob.isPresent()){
-                Book b = objectCreate(ob.get(),dueDate.getModel());
-                libraryRepository.update(b);
-            }else return;
-            mapAllAvailable();
-        }
-    }
-
-    private Book objectCreate(Book b,DateModel<?> model){
-        b.setDueDate(LocalDate.of(model.getYear(),model.getMonth()+1,model.getDay()));
-        b.setAvailable(false);
-        return b;
-    }
-
-    private void mapAllAvailable() {
-        state = OptionState.BURROW;
-        tableFieldGenerator(Selector.WITHOUT_DATE);
-        List<Book> allBooks = libraryRepository.getAllAvailableBook();
-        tableDataMapper(allBooks);
-    }
-
-    private void mapAllNonAvailableBook() {
-        state = OptionState.RETURN;
-        tableFieldGenerator(Selector.WITH_DATE);
-        tableDataMapper(allNonAvailableBook());
-    }
-
-    private void getAllOverDueBook(){
-        state = OptionState.RETURN;
-        tableFieldGenerator(Selector.WITH_DATE);
-        Predicate<Book> isOverDue = book -> book.getDueDate().isBefore(LocalDate.now());
-        tableDataMapper(allNonAvailableBook(),isOverDue);
-    }
-
-
-    private List<Book> allNonAvailableBook(){
-        return libraryRepository.getAllNonAvailableBook();
-    }
-
-
 }

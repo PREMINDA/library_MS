@@ -1,5 +1,4 @@
 package org.example.Repository;
-import com.sun.istack.NotNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -7,8 +6,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +34,16 @@ public class RepositoryImpl<T,ID> implements Repository<T,ID> {
 
     @Override
     public void deleteById(ID id) {
-        findById(id).ifPresent(this::delete);
+        try (Session se = getSession()){
+            se.beginTransaction();
+            Object entity = se.load(domainType, (Serializable) id);
+            se.delete(entity);
+            se.getTransaction().commit();
+            se.close();
+        }catch (Exception e){
+            logger.severe("Failed delete. " + e.getMessage());
+            rollbackCurrent();
+        }
     }
 
     @Override
@@ -100,18 +107,6 @@ public class RepositoryImpl<T,ID> implements Repository<T,ID> {
             logger.severe("Failed run custom query. " + e.getMessage());
         }
         return null;
-    }
-
-    private void delete(T entity) {
-        try (Session se = getSession()){
-            se.beginTransaction();
-            se.delete(entity);
-            se.getTransaction().commit();
-            se.close();
-        }catch (Exception e){
-            logger.severe("Failed delete. " + e.getMessage());
-            rollbackCurrent();
-        }
     }
 
     private Session getSession(){

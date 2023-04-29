@@ -1,9 +1,10 @@
 package org.example.ui.cli;
 
-import org.example.Repository.LibraryRepository;
+import org.example.Services.LibraryService;
+import org.example.commands.CliCommands;
+import org.example.commands.Commands;
+import org.example.constant.CliConstant;
 import org.example.ui.interfaces.UI;
-import org.example.ui.cli.commcands.*;
-import org.example.ui.cli.interfaces.CLICommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,46 +12,41 @@ import java.util.Scanner;
 
 public class LibraryCLI implements UI {
 
-    private final LibraryRepository libraryRepository;
     private final Scanner scanner;
-    private final Map<Integer, CLICommand> commands;
+    private final Commands cliCommands;
+    int choice;
 
-    public LibraryCLI(LibraryRepository libraryRepository) {
-        this.libraryRepository = libraryRepository;
-        commands = new HashMap<>();
+    public LibraryCLI(LibraryService libraryService) {
         this.scanner = new Scanner(System.in);
-        addCommand();
+        this.cliCommands = new CliCommands(libraryService,scanner);
     }
     @Override
     public void show() {
         startCli();
     }
 
-    public void addCommand() {
-        this.commands.put(1, new AddNewBook(libraryRepository, scanner));
-        this.commands.put(2, new RemoveBook(libraryRepository, scanner));
-        this.commands.put(3, new ShowAllBooks(libraryRepository));
-        this.commands.put(4, new ShowAllAvailableBooks(libraryRepository));
-        this.commands.put(5, new ShowOptions(commands));
-        this.commands.put(6, new ExitCLI());
-    }
-
     private void startCli() {
         System.out.println("\n-------------Welcome to the Library Management System.-----------\n");
 
-        CLICommand command = commands.get(5);
-        command.run();
-        while (true) {
-            int choice = getChoice();
-            command = commands.get(choice);
-            if (command != null) {
-                command.run();
-            } else {
-                System.out.println("Invalid choice. Please try again.");
-            }
-            System.out.println("");
-
-            commands.get(5).run();
+        try {
+            do {
+                System.out.println(CliConstant.PROMPT);
+                choice = getChoice();
+                switch (choice) {
+                    case 1 -> cliCommands.addBook();
+                    case 2 -> cliCommands.removeBook();
+                    case 3 -> cliCommands.allAvailableBook();
+                    case 4 -> cliCommands.borrowBook();
+                    case 5 -> cliCommands.returnBook();
+                    case 6 -> cliCommands.allNonAvailableBook();
+                    case 7 -> cliCommands.allBooks();
+                    case 8 -> cliCommands.overdueBooks();
+                    case 9 -> System.out.println("Exit from the CLI");
+                    default -> System.out.println("Invalid Input");
+                }
+            } while (choice != 9);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
     }
 

@@ -1,4 +1,4 @@
-package org.example.ui.gui.enums;
+package org.example.enums;
 
 public enum OptionState {
     BURROW,
