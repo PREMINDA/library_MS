@@ -7,28 +7,28 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 public class RepositoryImpl<T,ID> implements Repository<T,ID> {
-
     protected final Class<T> domainType;
     private static final Logger logger = Logger.getLogger(RepositoryImpl.class.getName());
     protected final SessionFactory sf ;
 
-    public RepositoryImpl(Class<T> domainType, SessionFactory sf) {
+    public RepositoryImpl( Class<T> domainType, SessionFactory sf) {
         this.domainType = domainType;
         this.sf = sf;
     }
 
-
     public Optional<T> findById(ID id) {
-        try {
-            Session se = getSession();
+        try (Session se = getSession()) {
             return Optional.ofNullable(se.find(domainType, id));
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.severe("Failed to findByID. " + e.getMessage());
         }
         return Optional.empty();
@@ -40,87 +40,100 @@ public class RepositoryImpl<T,ID> implements Repository<T,ID> {
     }
 
     @Override
-    public T save(T entity) {
-        try{
-            Session se = getSessionWithBegin();
+    public <S extends T> S save(S entity) {
+        try(Session se = getSession()){
+            se.beginTransaction();
             se.save(entity);
-            sessionCommitAndClose(se);
+            se.getTransaction().commit();
+            se.close();
             return entity;
         }catch (Exception e){
             logger.severe("Failed to save. " + e.getMessage());
+            rollbackCurrent();
         }
         return null;
     }
 
     @Override
-    public T update(T entity) {
-        try{
-            Session se = getSessionWithBegin();
+    public void update(T entity) {
+        try(Session se = getSession()){
+            se.beginTransaction();
             se.update(entity);
-            sessionCommitAndClose(se);
-            return entity;
+            se.getTransaction().commit();
+            se.close();
         }catch (Exception e){
             logger.severe("Failed to update. " + e.getMessage());
+            rollbackCurrent();
         }
-        return null;
     }
 
     @Override
     public List<T> getAll() {
-        Session se = getSession();
-        CriteriaBuilder criteriaBuilder = se.getCriteriaBuilder();
-        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(domainType);
-        Root<T> root = criteriaQuery.from(domainType);
-        criteriaQuery.select(root);
-        List<T> resultList = se.createQuery(criteriaQuery).getResultList();
-        se.close();
-        return resultList;
-    }
 
-    protected List<T> runCustomQuery(String hql, HashMap<String,Object> para){
-        Query result = queryGenerator(hql, para);
-        if(result != null) return result.getResultList();
+        try(Session se = getSession();){
+            CriteriaBuilder criteriaBuilder = se.getCriteriaBuilder();
+            CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(domainType);
+            Root<T> root = criteriaQuery.from(domainType);
+            criteriaQuery.select(root);
+            List<T> resultList = se.createQuery(criteriaQuery).getResultList();
+            se.close();
+            return resultList;
+        }catch (Exception e){
+            logger.severe("Failed to get all book "+e.getMessage());
+        }
         return null;
     }
 
-    private Query queryGenerator(@NotNull String hql, HashMap<String,Object> para){
-
-        try{
-            Session se = getSession();
+    protected List<T> runCustomQuery(String hql, HashMap<String,Object> para){
+        List<T> result = new ArrayList<>();
+        try(Session se = getSession()) {
+            se.beginTransaction();
             Query query = se.createQuery(hql);
             for (String key : para.keySet()) {
                 Object value = para.get(key);
                 query.setParameter(key, value);
             }
-            return query;
-        }catch (Exception e){
+            result = query.getResultList();
+            se.close();
+            return result;
+        } catch (Exception e) {
             logger.severe("Failed run custom query. " + e.getMessage());
         }
         return null;
     }
 
     private void delete(T entity) {
-        try {
-            Session se = getSessionWithBegin();
+        try (Session se = getSession()){
+            se.beginTransaction();
             se.delete(entity);
-            sessionCommitAndClose(se);
+            se.getTransaction().commit();
+            se.close();
         }catch (Exception e){
             logger.severe("Failed delete. " + e.getMessage());
+            rollbackCurrent();
         }
     }
 
-    protected Session getSession(){
+    private Session getSession(){
         return this.sf.openSession();
     }
 
-    protected Session getSessionWithBegin(){
-        Session se = this.sf.openSession();
-        se.beginTransaction();
-        return se;
+    private Transaction getTransaction(){
+        return this.sf.getCurrentSession().getTransaction();
     }
-    protected void sessionCommitAndClose(Session se){
-        Transaction ts = se.getTransaction();
-        ts.commit();
-        se.close();
+
+    private void rollbackCurrent(){
+        Transaction tx = getTransaction();
+        if(tx != null){
+            tx.rollback();
+        }
     }
+
+    private void sessionClose(){
+        Session se = this.sf.getCurrentSession();
+        if(se != null){
+            se.close();
+        }
+    }
+
 }

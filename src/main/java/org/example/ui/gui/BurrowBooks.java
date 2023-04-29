@@ -3,6 +3,7 @@ package org.example.ui.gui;
 import org.example.Repository.LibraryRepository;
 import org.example.entity.Book;
 import org.example.ui.gui.enums.Selector;
+import org.example.ui.gui.enums.OptionState;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 
@@ -15,9 +16,11 @@ import java.util.function.Predicate;
 
 public class BurrowBooks extends LibraryGUIDataHandler {
 
+    private OptionState state;
 
     public BurrowBooks(LibraryRepository libraryRepository) {
         super(libraryRepository);
+        state = OptionState.BURROW;
         createGUI();
     }
 
@@ -56,6 +59,10 @@ public class BurrowBooks extends LibraryGUIDataHandler {
     }
 
     private void returnBook() {
+        if(state != OptionState.RETURN){
+            messageShower("Select All non available book first");
+            return;
+        }
         int selectedRow = getSelectedRow();
         if (selectedRow == -1) {
             messageShower("Please select a book");
@@ -75,6 +82,10 @@ public class BurrowBooks extends LibraryGUIDataHandler {
     }
 
     private void burrowing() {
+        if(state != OptionState.BURROW){
+            messageShower("Select All available book first");
+            return;
+        }
         int selectedRow = getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(jPanel, "Please select a book.");
@@ -103,21 +114,25 @@ public class BurrowBooks extends LibraryGUIDataHandler {
     }
 
     private void mapAllAvailable() {
+        state = OptionState.BURROW;
         tableFieldGenerator(Selector.WITHOUT_DATE);
         List<Book> allBooks = libraryRepository.getAllAvailableBook();
         tableDataMapper(allBooks);
     }
 
     private void mapAllNonAvailableBook() {
+        state = OptionState.RETURN;
         tableFieldGenerator(Selector.WITH_DATE);
         tableDataMapper(allNonAvailableBook());
     }
 
     private void getAllOverDueBook(){
+        state = OptionState.RETURN;
         tableFieldGenerator(Selector.WITH_DATE);
         Predicate<Book> isOverDue = book -> book.getDueDate().isBefore(LocalDate.now());
         tableDataMapper(allNonAvailableBook(),isOverDue);
     }
+
 
     private List<Book> allNonAvailableBook(){
         return libraryRepository.getAllNonAvailableBook();

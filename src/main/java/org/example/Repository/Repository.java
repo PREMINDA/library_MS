@@ -6,8 +6,8 @@ import java.util.Optional;
 public interface Repository<T, ID> {
     public Optional<T> findById(ID id);
     public  void deleteById(ID id);
-    public T save(T entity);
-     public List<T> getAll();
-    public T update(T entity);
+    public <S extends T> S save(S entity);
+    public List<T> getAll();
+    public void update(T entity);
 
 }

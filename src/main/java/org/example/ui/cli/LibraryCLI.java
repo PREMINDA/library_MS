@@ -50,7 +50,6 @@ public class LibraryCLI implements UI {
             }
             System.out.println("");
 
-            // show the menu again
             commands.get(5).run();
         }
     }
