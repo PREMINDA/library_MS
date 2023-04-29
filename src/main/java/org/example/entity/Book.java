@@ -26,14 +26,12 @@ public class Book {
         this.title = bookBuilder.title;
         this.isAvailable = bookBuilder.isAvailable;
         this.dueDate = bookBuilder.dueDate;
-
     }
 
     public static class BookBuilder {
         private String title;
         private String author;
         private boolean isAvailable;
-
         private LocalDate dueDate;
 
         public BookBuilder title(String title) {

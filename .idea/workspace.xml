@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc9ffb32-61c6-45e2-9762-70541c79d898" name="Changes" comment="cleanup">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/commands/Commander.java" afterDir="false" />
+    <list default="true" id="dc9ffb32-61c6-45e2-9762-70541c79d898" name="Changes" comment="refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/LibraryCLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/cli/LibraryCLI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/BurrowBooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/BurrowBooks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUIHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryGUIHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/gui/LibraryInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/uifactory/UIFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/uifactory/UIFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/commands/GuiCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/commands/GuiCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/commands/GuiHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Book.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +54,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "MTHome",
+    "settings.editor.selected.configurable": "inlay.hints",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -97,7 +92,8 @@
       <workItem from="1682524326362" duration="1686000" />
       <workItem from="1682750501344" duration="9953000" />
       <workItem from="1682772825302" duration="1014000" />
-      <workItem from="1682773864710" duration="21969000" />
+      <workItem from="1682773864710" duration="22077000" />
+      <workItem from="1682799237202" duration="4746000" />
     </task>
     <task id="LOCAL-00001" summary="fixer">
       <created>1682766832161</created>
@@ -127,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682797595746</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="refactor">
+      <created>1682799122844</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1682799122844</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,7 +152,8 @@
     <MESSAGE value="changes" />
     <MESSAGE value="typo error" />
     <MESSAGE value="cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleanup" />
+    <MESSAGE value="refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

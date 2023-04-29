@@ -2,21 +2,33 @@ package org.example.commands;
 
 import org.example.Services.LibraryService;
 import org.example.entity.Book;
+import org.example.enums.OptionState;
 import org.example.enums.Selector;
+import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.function.Predicate;
 
-public class GuiCommands extends GuiHelper implements Commands{
+public class GuiCommands implements Commands{
 
-    public GuiCommands(JPanel jPanel, JTable table, LibraryService libraryService, DefaultTableModel model) {
-        super(jPanel, table, libraryService,model);
-        tableFieldGenerator(Selector.WITHOUT_DATE);
+    private final JPanel jPanel;
+    private final JTable table;
+    private final LibraryService libraryService;
+    private final DefaultTableModel model;
+    private OptionState optionState;
+
+
+    public GuiCommands(JPanel jPanel, JTable table,LibraryService libraryService,DefaultTableModel model) {
+        this.jPanel = jPanel;
+        this.table = table;
+        this.libraryService = libraryService;
+        this.model = model;
+        this.optionState = OptionState.BURROW;
     }
-
     @Override
     public void addBook() {
         JTextField titleField = new JTextField();
@@ -51,6 +63,10 @@ public class GuiCommands extends GuiHelper implements Commands{
 
     @Override
     public void borrowBook() {
+        if(optionState != OptionState.BURROW){
+            JOptionPane.showMessageDialog(jPanel, "Please select available books first.");
+            return;
+        }
         int selectedRow = getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(jPanel, "Please select a book.");
@@ -74,6 +90,10 @@ public class GuiCommands extends GuiHelper implements Commands{
 
     @Override
     public void returnBook() {
+        if(optionState != OptionState.RETURN){
+            JOptionPane.showMessageDialog(jPanel, "Please select non available books first.");
+            return;
+        }
         int selectedRow = getSelectedRow();
         if (selectedRow == -1) {
             messageShower("Please select a book");
@@ -93,7 +113,7 @@ public class GuiCommands extends GuiHelper implements Commands{
 
     @Override
     public void overdueBooks() {
-        //        state = OptionState.RETURN;
+        optionState = OptionState.RETURN;
         tableFieldGenerator(Selector.WITH_DATE);
         Predicate<Book> isOverDue = book -> book.getDueDate().isBefore(LocalDate.now());
         tableDataMapper(libraryService.getAllNonAvailableBook(),isOverDue);
@@ -101,21 +121,87 @@ public class GuiCommands extends GuiHelper implements Commands{
 
     @Override
     public void allNonAvailableBook() {
-        //        state = OptionState.RETURN;
+        optionState = OptionState.RETURN;
         tableFieldGenerator(Selector.WITH_DATE);
         tableDataMapper(libraryService.getAllNonAvailableBook());
     }
 
     @Override
     public void allAvailableBook() {
-        //        state = OptionState.BURROW;
+        optionState = OptionState.BURROW;
         tableFieldGenerator(Selector.WITHOUT_DATE);
         tableDataMapper(libraryService.getAllAvailableBook());
     }
 
     @Override
     public void allBooks() {
+        tableFieldGenerator(Selector.WITHOUT_DATE);
         java.util.List<Book> allBooks = libraryService.getAllBook();
         tableDataMapper(allBooks);
+    }
+
+    private int getSelectedRow(){
+        return table.getSelectedRow();
+    }
+
+    private int getBookIdFromSelectedRow(int selectedRow){
+        return  (int) table.getValueAt(selectedRow, 0);
+    }
+
+    private int jOptionCreate(String inputFields,String title,int jOptionPane){
+        return JOptionPane.showConfirmDialog(jPanel, inputFields, "Add Book", jOptionPane);
+    }
+
+    private int jOptionCreate(Object [] inputFields,String title,int jOptionPane){
+        return JOptionPane.showConfirmDialog(jPanel, inputFields, title, jOptionPane);
+    }
+
+    private Book objectCreate(JTextField titleF, JTextField authorF){
+        return new Book.BookBuilder().title(titleF.getText()).author(authorF.getText()).build();
+    }
+
+    private Book objectCreate(Book b, DateModel<?> model){
+        LocalDate ld = LocalDate.of(model.getYear(),model.getMonth()+1,model.getDay());
+        b.setDueDate(ld);
+        b.setAvailable(false);
+        return b;
+    }
+
+    private void messageShower(String message){
+        JOptionPane.showMessageDialog(jPanel, message);
+    }
+
+    private void tableFieldGenerator(Selector selector){
+        if(selector == Selector.WITH_DATE){
+            model.setColumnCount(0);
+            model.addColumn("ID");
+            model.addColumn("Title");
+            model.addColumn("Author");
+            model.addColumn("Available");
+            model.addColumn("Due Date");
+        }else{
+            model.setColumnCount(0);
+            model.addColumn("ID");
+            model.addColumn("Title");
+            model.addColumn("Author");
+            model.addColumn("Available");
+        }
+    }
+
+    private void tableDataMapper(List<Book> allBooks){
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        for (Book book : allBooks) {
+            model.addRow(new Object[] { book.getId(), book.getTitle(), book.getAuthor(), book.isAvailable(),book.getDueDate() });
+        }
+    }
+
+    private void tableDataMapper(List<Book> allBooks, Predicate<Book> filter){
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        List<Book> overDue = allBooks.stream().filter(filter).toList();
+        model.setRowCount(0);
+        for (Book book : overDue) {
+            model.addRow(new Object[] { book.getId(), book.getTitle(), book.getAuthor(), book.isAvailable(),book.getDueDate() });
+        }
     }
 }
