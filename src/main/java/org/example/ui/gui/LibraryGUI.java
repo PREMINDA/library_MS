@@ -20,7 +20,7 @@ public class LibraryGUI implements UI {
         JFrame frame = new JFrame("Tabbed Pane Example");
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        tabbedPane.addTab("Library Data", new LibraryInfor(libraryService).getjPanel());
+        tabbedPane.addTab("Library Data", new LibraryInfo(libraryService).getjPanel());
         tabbedPane.addTab("Burrow Handler", new BurrowBooks(libraryService).getjPanel());
 
         frame.add(tabbedPane);

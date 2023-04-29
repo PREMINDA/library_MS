@@ -4,9 +4,9 @@ import org.example.Services.LibraryService;
 import javax.swing.*;
 import java.awt.*;
 
-public class LibraryInfor extends LibraryGUIHelper {
+public class LibraryInfo extends LibraryGUIHelper {
 
-    public LibraryInfor(LibraryService libraryService) {
+    public LibraryInfo(LibraryService libraryService) {
         super(libraryService);
         createGUI();
     }
