@@ -1,5 +1,8 @@
 package org.example.ui.gui;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.example.Services.LibraryService;
 import javax.swing.*;
 import java.awt.*;
